@@ -75,7 +75,7 @@ NSData *colorizeURL(CFBundleRef bundle, CFURLRef url, int *status, int thumbnail
 #endif
                                    @"9", @"fontSizePoints",
                                    @"Monaco", @"font",
-                                   @"ide-xcode", @"hlTheme", 
+                                   @"edit-xcode", @"hlTheme",
                                    @"", @"extraHLFlags", 
                                    @"", @"maxFileSize", 
                                    @"UTF-8", @"textEncoding", 

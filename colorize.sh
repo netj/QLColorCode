@@ -34,9 +34,9 @@ debug Starting colorize.sh
 
 hlDir=$rsrcDir/highlight
 cmd=$hlDir/bin/highlight
-cmdOpts=(-I --font $font --quiet --add-data-dir $rsrcDir/override \
+cmdOpts=(-I --font $font --quiet \
          --data-dir $rsrcDir/highlight/share/highlight \
-         --add-config-dir $rsrcDir/override/config --style $hlTheme \
+         --add-config-dir $rsrcDir/etc/highlight --style $hlTheme \
          --font-size $fontSizePoints --encoding $textEncoding ${=extraHLFlags} --validate-input)
 
 #for o in $cmdOpts; do echo $o\<br/\>; done 
