@@ -81,20 +81,23 @@ case $target in
             lang=pro
         fi
         ;;
-    * ) 
+    *.* ) 
         lang=${target##*.}
-    ;;
+        ;;
+    * )
+        lang=
+        ;;
 esac
 debug Resolved $target to language $lang
 
 go4it () {
     debug Generating the preview
     if [ $thumb = "1" ]; then
-        $reader | head -n 100 | head -c 20000 | $cmd --syntax $lang $cmdOpts && exit 0
+        $reader | head -n 100 | head -c 20000 | $cmd --syntax "$lang" $cmdOpts && exit 0
     elif [ -n "$maxFileSize" ]; then
-        $reader | head -c $maxFileSize | $cmd --syntax $lang $cmdOpts && exit 0
+        $reader | head -c $maxFileSize | $cmd --syntax "$lang" $cmdOpts && exit 0
     else
-        $reader | $cmd --syntax $lang $cmdOpts && exit 0
+        $reader | $cmd --syntax "$lang" $cmdOpts && exit 0
     fi
 }
 
