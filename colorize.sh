@@ -133,8 +133,8 @@ generate-preview () {
 }
 
 if ! read-target | generate-preview; then
-    # Uh-oh, it didn't work,
-    if $qlcc_text_fallback; then
+    # Uh-oh, it didn't work, see if we can fallback to text
+    if $qlcc_text_fallback || [[ $(file --brief --mime-type "$Target") = text/* ]]; then
         # Fallback to rendering as plain text
         debug First try failed, fallback to plain text
         lang=txt
