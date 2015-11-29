@@ -220,6 +220,8 @@
 /* Begin PBXProject section */
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+			};
 			buildConfigurationList = 2CA326220896AD4900168862 /* Build configuration list for PBXProject "QLColorCode" */;
 			compatibilityVersion = "Xcode 3.0";
 			developmentRegion = English;
@@ -293,7 +295,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = "/bin/zsh -x";
-			shellScript = "set err_exit\ncd $PROJECT_DIR/highlight\nX=\"-arch i386 -arch x86_64 -isysroot $SDKROOT -mmacosx-version-min=$MACOSX_DEPLOYMENT_TARGET\"\nexport CFLAGS=$X\nexport CXXFLAGS=$X\nexport LDFLAGS=$X\nmake -j 2\n# Make sure it was built universal\n#lipo -info src/highlight | grep -q i386 || exit 1\nlipo -info src/highlight | grep -q x86_64 || exit 1\nmake \\\n\tDESTDIR=$BUILT_PRODUCTS_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH \\\n\tPREFIX=/highlight/ \\\n\tinstall\n\n";
+			shellScript = "set err_exit\ncd $PROJECT_DIR/highlight\nX=\"-arch i386 -arch x86_64 -isysroot $SDKROOT -mmacosx-version-min=$MACOSX_DEPLOYMENT_TARGET\"\nexport CFLAGS=$X\nexport CXXFLAGS=$X\nexport LDFLAGS=$X\nmake -j CFLAGS=$X CXXFLAGS=$X LDFLAGS=$X\n# Make sure it was built universal\nlipo -info src/highlight | grep -q i386 || exit 1\nlipo -info src/highlight | grep -q x86_64 || exit 1\nmake \\\n\tDESTDIR=$BUILT_PRODUCTS_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH \\\n\tPREFIX=/highlight/ \\\n\tinstall\n\n# Make sure all required .dylib are bundled\nDYLIBS=`otool -L src/highlight | grep \"^\\t\" | grep -v \"/usr/lib/\" | awk -F' ' '{ print $1 }'`\nhighlight_root=$BUILT_PRODUCTS_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/highlight\nmkdir -p $highlight_root/lib\nfor dylib in $DYLIBS; do\n    cp -f $dylib $highlight_root/lib/\n    install_name_tool -change $dylib @executable_path/../lib/`basename $dylib` $highlight_root/bin/highlight\ndone";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -388,7 +390,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PREBINDING = NO;
 				SDKROOT = macosx;
 			};
@@ -397,12 +399,11 @@
 		2CA326240896AD4900168862 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1)";
-				ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1 = "x86_64 i386 ppc";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CURRENT_PROJECT_VERSION = 2.0.2;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PREBINDING = NO;
 				SDKROOT = macosx;
 			};
